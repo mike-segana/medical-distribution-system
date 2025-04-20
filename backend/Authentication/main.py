@@ -3,10 +3,24 @@ import models
 from database import engine, SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
-import auth
-from auth import get_current_user
+from Authentication import auth
+from Authentication.auth import get_current_user
+from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
+
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
+#Enabling Cross-Origin Resoure Sharing (CORS)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,  # Allow the Dashboard to make requests
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"], 
+)
 #including the authentication router
 app.include_router(auth.router)
 

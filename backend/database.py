@@ -17,6 +17,4 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 #base class for defining orm models
-#orm allows interactions with databse tables as if they were objects without needing explicit queries
-#easier to perform CRUD operations through proving an object-oriented appraoch
 Base = declarative_base()

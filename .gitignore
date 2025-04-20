@@ -4,19 +4,21 @@
 #ignore virtual environment
 my_venv/
 env/
+v_env/
+v_venv/
 
 #ignoring python bytecode cache folders
 __pycache__/
 *.pyc
 
-# Ignore Docker artifacts
+#ignoring docker artifacts
 *.log
 *.pid
 *.db
 
-# Ignore editor/IDE files
+#ignoring editor/IDE files
 .vscode/
 *.swp
 
-# Ignore system files
+#ignoring system files
 .DS_Store
