@@ -16,7 +16,7 @@ ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "").split(",")
 #Enabling Cross-Origin Resoure Sharing (CORS)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,  # Allow the Dashboard to make requests
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"], 
