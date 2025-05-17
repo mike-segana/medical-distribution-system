@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, Boolean
 from database import Base
 
 class Inventory(Base):
@@ -8,3 +8,4 @@ class Inventory(Base):
     name = Column(String, index=True)
     quantity = Column(Integer)
     description = Column(String)
+    isDeleted = Column(Boolean, default="False", nullable=False) 

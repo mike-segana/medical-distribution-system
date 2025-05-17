@@ -5,8 +5,20 @@ from fastapi.security import OAuth2
 from Dashboard.dashboard import router
 import os
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
+app = FastAPI()
+
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class OAuth2PasswordBearerWithCookie(OAuth2):
     def __init__(self, tokenUrl: str):
@@ -15,5 +27,4 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=os.getenv("AUTH_TOKEN_URL"))
 
-app = FastAPI()
 app.include_router(router)

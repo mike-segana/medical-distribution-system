@@ -11,6 +11,7 @@ class InventoryCreate(BaseModel):
 
 class InventoryOut(InventoryCreate):
     id: int
+    isDeleted: bool
 
 class InventoryUpdate(BaseModel):
     name: Optional[str] = None

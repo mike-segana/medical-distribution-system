@@ -8,3 +8,9 @@ python-multipart
 psycopg2-binary
 python-dotenv
 setuptools>=70.0.0
+scikit-learn==1.6.1
+numpy==1.26.4
+joblib==1.4.2
+pandas
+pydantic[email]
+web3 eth-account

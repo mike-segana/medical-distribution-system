@@ -34,7 +34,3 @@ __pycache__/
 
 #ignore node_modules
 node_modules/
-
-.python-version
-*.log, *.tmp
-.vscode/, .idea/

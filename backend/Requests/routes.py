@@ -9,14 +9,14 @@ router = APIRouter(prefix="/requests", tags=["Requests"])
 
 @router.get("/available-items")
 def get_available_inventory_items(db: db_dependency):
-    items = db.query(Inventory.id, Inventory.name, Inventory.quantity).all()
+    items = db.query(Inventory.id, Inventory.name, Inventory.quantity).filter(Inventory.isDeleted == False).all()
     return [{"id": i[0], "name": i[1], "quantity": i[2]} for i in items]
 
 @router.post("/", response_model=RequestOut)
 def create_request(request: RequestCreate, db: db_dependency, user=Depends(get_current_user)):
-    item = db.query(Inventory).filter(Inventory.id == request.inventory_id).first()
+    item = db.query(Inventory).filter(Inventory.id == request.inventory_id, Inventory.isDeleted == False).first()
     if not item or item.quantity < request.quantity:
-        raise HTTPException(status_code=400, detail="Not enough inventory")
+        raise HTTPException(status_code=400, detail="Not enough inventory or item is no longer available")
 
     new_request = Request(
         user_id=user["id"],
@@ -48,9 +48,9 @@ def accept_request(request_id: int, db: db_dependency, user=Depends(get_admin_us
     if not req or req.status != RequestStatus.pending:
         raise HTTPException(status_code=404, detail="Invalid request")
 
-    inventory_item = db.query(Inventory).filter(Inventory.id == req.inventory_id).first()
-    if inventory_item.quantity < req.quantity:
-        raise HTTPException(status_code=400, detail="Not enough inventory to fulfill request")
+    inventory_item = db.query(Inventory).filter(Inventory.id == req.inventory_id, Inventory.isDeleted == False).first()
+    if not inventory_item or inventory_item.quantity < req.quantity:
+        raise HTTPException(status_code=400, detail="Not enough inventory to fulfill request or item is no longer available")
 
     inventory_item.quantity -= req.quantity
     req.status = RequestStatus.accepted
