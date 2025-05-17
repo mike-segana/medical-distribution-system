@@ -1,0 +1,59 @@
+// Dashboard.js
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { DASHBOARD_API_URL } from "../config";
+import { useNavigate } from "react-router-dom";
+
+function Dashboard() {
+    const [message, setMessage] = useState("");
+    const [role, setRole] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+            return;
+        }
+
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        setRole(payload.role);
+
+        axios.get(`${DASHBOARD_API_URL}/dashboard/${payload.role}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        }).then((res) => {
+            setMessage(res.data.message);
+        }).catch(() => {
+            setMessage("Access denied");
+        });
+    }, [navigate]);
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+    };
+
+    return (
+        <div>
+            <h2>Dashboard</h2>
+            <p>{message}</p>
+            {role === "admin" && (
+                <>
+                    <button onClick={() => navigate("/inventory")}>Go to Inventory</button>
+                    <button onClick={() => navigate("/requests")}>Manage Requests</button>
+                </>
+            )}
+            {role === "user" && (
+                <>
+                    <button onClick={() => navigate("/requests")}>Requests</button>
+                    <button onClick={() => navigate("/add-patient")}>Add Patient</button>
+                    <button onClick={() => navigate("/my-patients")}>My Patients</button>
+                    <button onClick={() => navigate("/view-vitals")}>View Vitals</button>
+                </>
+            )}
+            <button onClick={logout}>Logout</button>
+        </div>
+    );
+}
+
+export default Dashboard;
