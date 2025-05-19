@@ -14,11 +14,14 @@ venv/
 #ignore model files (.pkl)
 *.pkl
 VitalsService/*.pkl
+PrescriptionService/models/
 
 
 #ignoring python bytecode cache folders
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 #ignoring docker artifacts
 *.log
@@ -34,3 +37,4 @@ __pycache__/
 
 #ignore node_modules
 node_modules/
+

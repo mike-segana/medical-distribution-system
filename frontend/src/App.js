@@ -11,7 +11,11 @@ import PatientList from "./components/Patients/PatientList";
 import ViewVitals from "./components/Vitals/ViewVitals";
 import EditPatient from "./components/Patients/EditPatient";
 import EditVitals from "./components/Vitals/EditVitals";
-
+import AddSymptoms from "./components/Prescriptions/AddSymptoms";
+import AddPrescriptions from "./components/Prescriptions/AddPrescriptions";
+import ViewPrescriptionRecords from "./components/Prescriptions/ViewPrescriptionRecords";
+import AddSymptomsPrescriptions from "./components/Prescriptions/AddSymptomsPrescriptions";
+import UpdateSymptomsPrescriptions from "./components/Prescriptions/UpdateSymptomsPrescriptions";
 
 function App() {
     return (
@@ -28,6 +32,12 @@ function App() {
                 <Route path="/view-vitals" element={<PrivateRoute role="user"><ViewVitals /></PrivateRoute>} />
                 <Route path="/edit-patient/:id" element={<PrivateRoute role="user"><EditPatient /></PrivateRoute>} />
                 <Route path="/edit-vitals/patient/:id" element={<EditVitals />} />
+                <Route path="/add-symptoms/:patientId" element={<PrivateRoute role="user"><AddSymptoms /></PrivateRoute>} />
+                <Route path="/add-prescriptions/:patientId" element={<PrivateRoute role="user"><AddPrescriptions /></PrivateRoute>} />
+                <Route path="/patient-records/:patientId" element={<PrivateRoute role="user"><ViewPrescriptionRecords /></PrivateRoute>} />
+                <Route path="/add-symptoms-and-prescriptions" element={<PrivateRoute role="user"><AddSymptomsPrescriptions /></PrivateRoute>} />
+                <Route path="/update-patient-records/:patientId" element={<PrivateRoute role="user"><UpdateSymptomsPrescriptions /></PrivateRoute>} />
+                <Route path="/update-symptoms-and-prescriptions" element={<PrivateRoute role="user"><UpdateSymptomsPrescriptions /></PrivateRoute>} />
             </Routes>
         </Router>
     );

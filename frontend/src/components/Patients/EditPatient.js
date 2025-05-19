@@ -50,6 +50,7 @@ function EditPatient() {
                 <option value="female">Female</option>
             </select>
             <button onClick={handleUpdate}>Update Patient</button>
+            <button onClick={() => navigate("/Dashboard")}>Back to Dashboard</button>
         </div>
     );
 }

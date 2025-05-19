@@ -75,6 +75,7 @@ function EditVitals() {
                 placeholder="Mean BP"
             />
             <button onClick={updateVitals}>Update Vitals</button>
+            <button onClick={() => navigate("/Dashboard")}>Back to Dashboard</button>
         </div>
     );
 }

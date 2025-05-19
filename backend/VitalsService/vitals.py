@@ -87,3 +87,28 @@ def update_vitals(patient_id: int, vitals: VitalsUpdate, db: db_dependency, user
     db.refresh(existing_vitals)
     log_operation(doctor_id, patient.id, "UPDATE_VITALS")
     return existing_vitals
+
+@router.get("/high-risk", status_code=200)
+def get_high_risk_patients(db: db_dependency, user=Depends(get_current_user)):
+    high_risk = (
+        db.query(Patient, Vitals)
+        .join(Vitals, Vitals.patient_id == Patient.id)
+        .filter(Patient.user_id == user["id"], Vitals.risk_level == "High")
+        .all()
+    )
+
+    results = []
+    for patient, vitals in high_risk:
+        results.append({
+            "id": patient.id,
+            "first_name": patient.first_name,
+            "last_name": patient.last_name,
+            "age": patient.age,
+            "gender": patient.gender,
+            "heart_rate": vitals.heart_rate,
+            "spo2": vitals.spo2,
+            "respiratory_rate": vitals.respiratory_rate,
+            "mean_bp": vitals.mean_bp,
+            "risk_level": vitals.risk_level,
+        })
+    return results

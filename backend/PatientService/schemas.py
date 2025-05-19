@@ -25,6 +25,8 @@ class PatientOut(BaseModel):
     gender: str
     email: EmailStr
     phone: Optional[str]
+    risk_level: Optional[str] = None
+    flag_status: Optional[str] = None
 
     class Config:
         orm_mode = True
