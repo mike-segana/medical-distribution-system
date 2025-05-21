@@ -44,7 +44,7 @@ function EditVitals() {
             await axios.put(`${VITALS_API_URL}/vitals/${patientId}`, form, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            navigate("/view-vitals");
+            alert("Vitals Updated.");
         } catch (err) {
             console.error(err);
             alert("Failed to update vitals");

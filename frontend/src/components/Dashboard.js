@@ -41,18 +41,14 @@ function Dashboard() {
             <p>{message}</p>
             {role === "admin" && (
                 <>
-                    <button onClick={() => navigate("/inventory")}>Go to Inventory</button>
-                    <button onClick={() => navigate("/requests")}>Manage Requests</button>
+                
                 </>
             )}
             {role === "user" && (
                 <>
-                    <button onClick={() => navigate("/requests")}>Requests</button>
+                    
                     <button onClick={() => navigate("/add-patient")}>Add Patient</button>
-                    <button onClick={() => navigate("/my-patients")}>My Patients</button>
-                    <button onClick={() => navigate("/view-vitals")}>View Vitals</button>
-                    <button onClick={() => navigate("/manage-prescriptions")}>Manage Symptoms & Prescriptions</button>
-                    <button onClick={() => navigate("/update-symptoms-and-prescriptions")}>Update Symptoms & Prescriptions</button>
+                    
 
                     <MyPatientsPanel />
                     <FlaggedPatientsPanel />
@@ -65,3 +61,8 @@ function Dashboard() {
 }
 
 export default Dashboard;
+//<button onClick={() => navigate("/requests")}>Requests</button>
+//<button onClick={() => navigate("/my-patients")}>My Patients</button>
+//<button onClick={() => navigate("/view-vitals")}>View Vitals</button>
+//<button onClick={() => navigate("/manage-prescriptions")}>Manage Symptoms & Prescriptions</button>
+//<button onClick={() => navigate("/update-symptoms-and-prescriptions")}>Update Symptoms & Prescriptions</button>

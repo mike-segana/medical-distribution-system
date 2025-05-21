@@ -32,7 +32,7 @@ function EditPatient() {
             await axios.put(`${PATIENT_API_URL}/patients/${id}`, updateData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            navigate("/my-patients");
+            alert("Patient updated");
         } catch (err) {
             alert("Failed to update patient");
         }
